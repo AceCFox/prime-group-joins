@@ -25,6 +25,7 @@ WHERE "products"."description" = 'diet pepsi';
 
 
 --5. Get the number of orders for each customer. NOTE: It is OK if those without orders are not included in results.
+
 SELECT "customers"."first_name", "customers"."last_name", count(*) FROM "orders"
 JOIN "addresses" on "orders"."address_id" = "addresses"."id"
 JOIN "customers" on "addresses"."customer_id" = "customers"."id"
@@ -48,5 +49,12 @@ WHERE "products"."description" = 'diet pepsi'
 
 --## Stretch~
 --9. How much was the total cost for each order?
+
+SELECT "order_id", SUM("products"."unit_price" * "line_items"."quantity") as total FROM "line_items"
+JOIN "products" on "line_items"."product_id" = "products"."id"
+GROUP BY "line_items"."order_id";
+
 --10. How much has each customer spent in total?
+
+
 --11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table. It should say 0, not NULL (research coalesce).
